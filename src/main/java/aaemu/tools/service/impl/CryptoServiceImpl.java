@@ -49,9 +49,9 @@ public class CryptoServiceImpl implements CryptoService {
 
         RsaStepConfig rsa = properties.getRsa();
         int cipherBlockSize = rsa.getCLength();
-        int rounds = rsa.getRounds();
-        int totalCipherDataLength = cipherBlockSize * rounds;
-        List<String> ciphers = readCiphers(cipherBlockSize, totalCipherDataLength, rounds, bytes);
+        int parts = rsa.getParts();
+        int totalCipherDataLength = cipherBlockSize * parts;
+        List<String> ciphers = readCiphers(cipherBlockSize, totalCipherDataLength, parts, bytes);
         List<byte[]> decrypts = rsaDecrypt(ciphers, properties);
 
         List<Integer> blocksPoses = rsa.getBlocksPoses();
@@ -168,12 +168,12 @@ public class CryptoServiceImpl implements CryptoService {
         data.put(offset, decryptedBlock, 0, decryptedBlock.length);
     }
 
-    private static List<String> readCiphers(int cipherBlockSize, int totalCipherDataLength, int rounds, byte[] bytes) {
+    private static List<String> readCiphers(int cipherBlockSize, int totalCipherDataLength, int parts, byte[] bytes) {
         byte[] cipherBytes = new byte[cipherBlockSize];
         int pos = bytes.length - totalCipherDataLength;
-        List<String> ciphers = new ArrayList<>(rounds);
+        List<String> ciphers = new ArrayList<>(parts);
 
-        for (int i = 0; i < rounds; i++) {
+        for (int i = 0; i < parts; i++) {
             System.arraycopy(bytes, pos, cipherBytes, 0, cipherBlockSize);
             ciphers.add(toHex(cipherBytes));
             pos += cipherBlockSize;
@@ -185,14 +185,14 @@ public class CryptoServiceImpl implements CryptoService {
     private static List<byte[]> rsaDecrypt(List<String> ciphers, ConfigProperties properties) {
         RsaStepConfig rsa = properties.getRsa();
 
-        if (properties.isAaFree()) {
-            return rsaDecryptAaFree(ciphers, rsa);
+        if (properties.isAafree()) {
+            return rsaDecryptFree(ciphers, rsa);
         } else {
-            return rsaDecryptCommon(ciphers, rsa);
+            return rsaDecryptOfficial(ciphers, rsa);
         }
     }
 
-    private static List<byte[]> rsaDecryptCommon(List<String> ciphers, RsaStepConfig rsa) {
+    private static List<byte[]> rsaDecryptOfficial(List<String> ciphers, RsaStepConfig rsa) {
         List<String> decrypts = new ArrayList<>(ciphers.size());
         List<byte[]> mBytes = new ArrayList<>(ciphers.size());
 
@@ -214,7 +214,7 @@ public class CryptoServiceImpl implements CryptoService {
         return mBytes;
     }
 
-    private static List<byte[]> rsaDecryptAaFree(List<String> ciphers, RsaStepConfig rsa) {
+    private static List<byte[]> rsaDecryptFree(List<String> ciphers, RsaStepConfig rsa) {
         List<byte[]> mBytes = new ArrayList<>(ciphers.size());
         int mLength = rsa.getMLength();
 

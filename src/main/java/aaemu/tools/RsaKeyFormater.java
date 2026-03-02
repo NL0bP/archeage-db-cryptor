@@ -1,5 +1,7 @@
 package aaemu.tools;
 
+import static aaemu.tools.util.ConstantsUtils.RSA_KEYS_FILE_NAME;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class RsaKeyFormater {
     private final FileService fileService;
 
     public void formatRsaKeys(int hexLength) throws IOException {
-        List<String> lines = fileService.readAllLines("rsa_data.txt");
+        List<String> lines = fileService.readAllLines(RSA_KEYS_FILE_NAME);
         StringBuilder sb = new StringBuilder();
         String d = null;
         String n;

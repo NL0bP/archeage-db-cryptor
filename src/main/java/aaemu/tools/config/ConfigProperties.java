@@ -10,6 +10,7 @@ import aaemu.tools.enums.CipherMode;
 import aaemu.tools.enums.CipherVersion;
 import ch.qos.logback.core.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class ConfigProperties implements Comparable<ConfigProperties> {
     private RsaStepConfig rsa;
     private AesStepConfig aesSecondStage;
     private CipherMode cipherMode;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private boolean aafree;
 
     @JsonIgnore
     private Path path;
@@ -52,10 +56,6 @@ public class ConfigProperties implements Comparable<ConfigProperties> {
         }
 
         return UNKNOWN;
-    }
-
-    public boolean isAaFree() {
-        return provider.contains("Free") || provider.contains("free");
     }
 
     @Override

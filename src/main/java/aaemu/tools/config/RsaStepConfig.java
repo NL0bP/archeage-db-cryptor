@@ -19,7 +19,7 @@ import lombok.Data;
 public class RsaStepConfig {
     private BigInteger d;
     private BigInteger n;
-    private int rounds;
+    private int parts;
     private int cLength;
     private int mLength;
     private List<Integer> blocksPoses;
@@ -27,30 +27,30 @@ public class RsaStepConfig {
     @JsonCreator
     public RsaStepConfig(@JsonProperty("d") String dHex,
                          @JsonProperty("n") String nHex,
-                         @JsonProperty("constant") String constant,
-                         @JsonProperty("rounds") int rounds,
+                         @JsonProperty("offset_constant") String offset_constant,
+                         @JsonProperty("parts") int parts,
                          @JsonProperty("c_length") String cLength,
                          @JsonProperty("m_length") String mLength) {
         this.d = toBigInt(dHex);
         this.n = toBigInt(nHex);
-        this.rounds = rounds;
+        this.parts = parts;
         this.cLength = toInt(cLength);
         this.mLength = toInt(mLength);
 
-        this.blocksPoses = buildBlocksPoses(constant, rounds);
+        this.blocksPoses = buildBlocksPoses(offset_constant, parts);
     }
 
-    public int getRounds() {
+    public int getParts() {
         return blocksPoses.size();
     }
 
-    private List<Integer> buildBlocksPoses(String constant, int rounds) {
-        List<Integer> blocksPos = new ArrayList<>(rounds);
+    private List<Integer> buildBlocksPoses(String constant, int parts) {
+        List<Integer> blocksPos = new ArrayList<>(parts);
 
         XLRandom xlRandom = new XLRandom(constant);
         long currentPos = 0;
 
-        for (int i = 0; i < rounds; i++) {
+        for (int i = 0; i < parts; i++) {
             long blockStart = currentPos;
 
             xlRandom.generate(new byte[mLength], 0, mLength);

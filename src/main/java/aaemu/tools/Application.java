@@ -320,7 +320,7 @@ public class Application {
         System.out.println("┌────────────┬──────────────────────────────────────────────────────────────────┐");
         System.out.println("│    Type    │                              Value                               │");
         System.out.println("├────────────┼──────────────────────────────────────────────────────────────────┤");
-        System.out.println("│  Bit " + "(%3d)".formatted(bit) + " │ " + key + " ".repeat(65 - key.length()) + "│");
+        System.out.println("│  Key " + "(%3d)".formatted(bit) + " │ " + key + " ".repeat(65 - key.length()) + "│");
         System.out.println("│  IV        │ " + iv + " ".repeat(65 - iv.length()) + "│");
         System.out.printf("└────────────┴──────────────────────────────────────────────────────────────────┘%n");
     }
@@ -336,7 +336,7 @@ public class Application {
 
         BigInteger privateExponent = rsaStep.getD();
         BigInteger modulus = rsaStep.getN();
-        String rounds = "%d".formatted(rsaStep.getRounds());
+        String parts = "%d".formatted(rsaStep.getParts());
         String cLength = "%3d".formatted(rsaStep.getCLength());
         String mLength = "%3d".formatted(rsaStep.getMLength());
 
@@ -345,7 +345,7 @@ public class Application {
         System.out.println("├────────────┼──────────────────────────────────────────────────────────────────┤");
         System.out.println("│ d          │ " + privateExponent);
         System.out.println("│ n          │ " + modulus);
-        System.out.println("│ Rounds     │ " + rounds + " ".repeat(65 - rounds.length()) + "│");
+        System.out.println("│ Parts      │ " + parts + " ".repeat(65 - parts.length()) + "│");
         System.out.println("│ c length   │ " + cLength + " ".repeat(65 - cLength.length()) + "│");
         System.out.println("│ m length   │ " + mLength + " ".repeat(65 - mLength.length()) + "│");
         System.out.println("└────────────┴──────────────────────────────────────────────────────────────────┘");

@@ -19,6 +19,7 @@ public class ConstantsUtils {
     public static final byte[] GAME0PK_BYTES = toByteArray("67616D6530");
 
     public static final String ROOT_FOLDER = System.getProperty("user.dir");
+    public static final String RSA_KEYS_FILE_NAME = "rsa_keys.txt";
     public static final String CONFIG_PROPERTIES_FILE_NAME = "config.json";
     public static final String CONFIG_PROPERTIES_FILE_EXTENSION = "*.json";
     public static final String DB_SQLITE = "compact.sqlite";
