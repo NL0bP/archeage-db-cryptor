@@ -118,7 +118,7 @@ where:
 - `pirate` - is AAFree or AAClassic client (required for AAFree & AAClassic versions, optionals for officials)
 - `rsa.d` - private exponent in HEX (`"00"` if pirate)
 - `rsa.n` - modulus in HEX (`"00"` if pirate)
-- `rsa.constant` - 8 length HEX
+- `rsa.offset_constant` - 8 length HEX
 - `rsa.parts` - RSA parts
 - `rsa.c_length` - 2 length HEX encrypted data length
 - `rsa.m_length` - 2 length HEX decrypted data length (always less than `c_length`)
