@@ -153,7 +153,7 @@ where:
 
 1. Open `x2game.dll` in IDA
 2. Search string: `game_%u.sqlite3`
-3. Jump to xref to operand... (`X` press) ![function_4.png](images/function_4.png)
+3. Jump to xref to operand... (`X` press)
 4. Copy current function name (like `sub_39935810`)
 5. Open script `ida/dump_func.py`
 6. Change `function_name` text in `170` line
@@ -161,6 +161,10 @@ where:
 8. IDA -> File -> Script file -> Select `dump_func.py`
 9. Wait for the execution and creation of the `db_function_tree.txt` file where `x2game.dll` present
 10. Place `db_function_tree.txt` in the program folder
+
+Note: function from step 3
+
+![function_4.png](images/function_4.png)
 
 # Required
 
